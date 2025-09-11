@@ -17,5 +17,5 @@
     * `NumPy`: 수치 연산
     * `Matplotlib` & `Seaborn`: 데이터 시각화
     * `Scikit-learn`: 머신러닝 모델링
-    * `{사용한 다른 라이브러리, 예: Statsbombpy, mplsoccer}`
+    * `Statsbombpy, mplsoccer` 등: 파이썬 기반 축구 데이터 분석 라이브러리
 * **개발 환경 (IDE):** Jupyter Notebook, VS Code
