@@ -127,7 +127,10 @@ def refine_match_events(team_dict, player_dict, match_dict, match_event_dict, ma
         'matchId': 'match_id', 'matchPeriod': 'period', 'eventSec': 'time',
         'eventName': 'event_type', 'subEventName': 'sub_event_type', 'tags': 'tags'
     }
-    events = pd.DataFrame(match_event_dict[match_id]).rename(columns=col_dict)
+    events = pd.DataFrame(match_event_dict[match_id])
+    if 'matchId' not in events.columns:
+        events['matchId'] = match_id
+    events = events.rename(columns=col_dict)
     events['time'] = events['time'].round(3)
 
     events['team_name'] = events['team_id'].apply(
