@@ -18,4 +18,5 @@
    - 데이터는 별도의 [구글 드라이브](https://drive.google.com/drive/folders/1aH8X6hYzwpqojKNHZh7_1MRrQxwCy4pZ?usp=drive_link)에서 제공합니다.  
    - 드라이브의 `week4` 폴더 내부에 **`data` 폴더**를 만들고, 제공된 데이터를 그 안에 넣어주세요.  
 
-![실행 화면](/week4/example.png)
+![실행 화면](./week4/example.PNG)
+*구글 드라이브 예시 모습입니다.*
