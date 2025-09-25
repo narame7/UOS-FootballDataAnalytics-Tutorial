@@ -133,9 +133,12 @@ def refine_match_events(team_dict, player_dict, match_dict, match_event_dict, ma
     events = events.rename(columns=col_dict)
     events['time'] = events['time'].round(3)
 
+    # assign team name
     events['team_name'] = events['team_id'].apply(
         lambda x: team_dict[x]['name'].encode('ascii', 'strict').decode('unicode-escape')
     )
+
+    # assign player name
     events['player_name'] = events['player_id'].apply(
         lambda x: player_dict[x]['shortName'].encode('ascii', 'strict').decode('unicode-escape')
         if x != 0 else np.nan
@@ -147,11 +150,14 @@ def refine_match_events(team_dict, player_dict, match_dict, match_event_dict, ma
         if 'Goal' in tags:
             tags.remove('Goal')
 
+    # List형태로 구성된 position 정보를 분해 -> 분석에 용이함.
     events['start_x'] = [float(x[0]['x']) for x in events['positions']]
     events['start_y'] = [float(x[0]['y']) for x in events['positions']]
     events['end_x'] = [float(x[1]['x']) if len(x) > 1 else np.nan for x in events['positions']]
     events['end_y'] = [float(x[1]['y']) if len(x) > 1 else np.nan for x in events['positions']]
     
+    # 시작 위치와 끝 위치 정보 할당: 모든 이벤트 데이터에 시작과 끝 위치가 항상 기록되어 있는 것은 아니다.
+    # 이는 provider별 차이 때문이며, 존재하지 않을 경우 전처리 과정을 통해 생성해야 한다.
     events.loc[events['sub_event_type'] == 'Goal kick', ['start_x', 'start_y']] = [0, 50]
     events.loc[events['event_type'].isin(['Save attempt', 'Goalkeeper leaving line']), ['start_x', 'start_y']] = [0, 50]
     events.loc[events['event_type'] == 'Shot', ['end_x', 'end_y']] = [100, 50]
@@ -160,15 +166,19 @@ def refine_match_events(team_dict, player_dict, match_dict, match_event_dict, ma
     events.loc[events['sub_event_type'] == 'Ball out of the field', ['end_x', 'end_y']] = np.nan
     events.loc[events['sub_event_type'] == 'Whistle', ['start_x', 'start_y', 'end_x', 'end_y']] = np.nan
 
+    # 필드 좌표를 x=104, y=68 스케일로 변환
     events[['start_x', 'end_x']] = events[['start_x', 'end_x']] * 1.04
     events[['start_y', 'end_y']] = (100 - events[['start_y', 'end_y']]) * 0.68
 
+    # Wyscout 원본 데이터의 공격 방향 통일: 모든 팀이 왼쪽 -> 오른쪽으로 공격하도록 설정
+    # 끝 위치를 정의할 때 다음 위치 정보가 중요하므로, 팀별 공격 방향을 맞춘 후 좌표를 재조정
     team2_name = events['team_name'].unique()[1]
     team2_x = events.loc[events['team_name'] == team2_name, ['start_x', 'end_x']]
     team2_y = events.loc[events['team_name'] == team2_name, ['start_y', 'end_y']]
     events.loc[events['team_name'] == team2_name, ['start_x', 'end_x']] = 104 - team2_x
     events.loc[events['team_name'] == team2_name, ['start_y', 'end_y']] = 68 - team2_y
 
+    # 골키퍼 액션의 끝 위치 정의
     gk_actions = events[events['event_type'].isin(['Save attempt', 'Goalkeeper leaving line'])]
     for i, event in gk_actions.iterrows():
         if i == events.index[-1] or events.at[i, 'period'] != events.at[i+1, 'period']:
@@ -182,6 +192,7 @@ def refine_match_events(team_dict, player_dict, match_dict, match_event_dict, ma
             events.at[i, 'end_x'] = np.nan
             events.at[i, 'end_y'] = np.nan
 
+    # 슛팅의 끝 위치 정의
     shots = events[(events['event_type'] == 'Shot') | (events['sub_event_type'].isin(['Free kick', 'Penalty']))]
     events.loc[shots.index, 'start_x'] = shots['start_x'].clip(1, 103)
     for i, event in shots.iterrows():
@@ -199,6 +210,7 @@ def refine_match_events(team_dict, player_dict, match_dict, match_event_dict, ma
                 events.at[i+1, 'end_x'] = np.nan
                 events.at[i+1, 'end_y'] = np.nan
 
+    # 코너킥의 끝 위치 정의
     for period in events['period'].unique():
         period_events = events[events['period'] == period]
         to_corners = period_events[(period_events['end_x'].isin([0, 104])) & (period_events['end_y'].isin([0, 68]))]
@@ -213,6 +225,7 @@ def refine_match_events(team_dict, player_dict, match_dict, match_event_dict, ma
                 events.at[i, 'end_x'] = events.at[i+1, 'start_x']
                 events.at[i, 'end_y'] = events.at[i+1, 'start_y']
     
+    # 끝 위치를 조정할 때 바꾼 공격방향 다시 통일
     team2_x = events.loc[events['team_name'] == team2_name, ['start_x', 'end_x']]
     team2_y = events.loc[events['team_name'] == team2_name, ['start_y', 'end_y']]
     events.loc[events['team_name'] == team2_name, ['start_x', 'end_x']] = 104 - team2_x
