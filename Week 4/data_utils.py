@@ -7,7 +7,7 @@ from tqdm import tqdm
 from collections import defaultdict
 # import socceraction.spadl as spadl
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-DATA_DIR = os.path.join(BASE_DIR, "data")
+DATA_DIR = os.path.join(BASE_DIR, "data", "wyscout_data")
 
 def load_wyscout_dataset(dataset_name='Italy'):
     # loading the competitions data
@@ -40,7 +40,7 @@ def load_wyscout_dataset(dataset_name='Italy'):
         player_dict[player_id] = player
 
     # loading the matches data
-    matches_path = os.path.join(DATA_DIR, f"matches_{dataset_name}.json")
+    matches_path = os.path.join(DATA_DIR, "matches", f"matches_{dataset_name}.json")
     with open(matches_path) as json_data:
         matches = json.load(json_data)
 
@@ -50,7 +50,7 @@ def load_wyscout_dataset(dataset_name='Italy'):
         match_dict[match_id] = match
 
     # loading the events data
-    events_path = os.path.join(DATA_DIR, f"events_{dataset_name}.json")
+    events_path = os.path.join(DATA_DIR, "events", f"events_{dataset_name}.json")
     with open(events_path) as json_data:
         events = json.load(json_data)
     
