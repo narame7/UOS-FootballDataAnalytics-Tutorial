@@ -1329,7 +1329,7 @@ def load_all_data(data_path: str) -> Tuple[pd.DataFrame, pd.DataFrame, pd.DataFr
         - tracking_df: All processed tracking data from all matches concatenated.
         - teams_df: All team/player information from all matches concatenated.
     """
-    match_ids = [d for d in os.listdir(data_path) if os.path.isdir(os.path.join(data_path, d))]
+    match_ids = [d for d in os.listdir(data_path) if "DFL" in d and not d.startswith(".")]
     print(f"Found matches: {match_ids}")
     
     # 각 데이터를 담을 리스트 초기화
