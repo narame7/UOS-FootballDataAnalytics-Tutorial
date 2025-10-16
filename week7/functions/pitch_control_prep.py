@@ -140,7 +140,7 @@ class PitchControlCalculator:
             
         return frame_df, team_half
     
-    def calculate_model_pitch_control(self, melted_df, frame_id, attacking_only=False, attacking_penalty_area_only=False, show_info=False, ax=None):
+    def calculate_model_pitch_control(self, melted_df, frame_id, attacking_only=False, attacking_penalty_area_only=False, show_info=False):
         frame_df, team_half = self._prepare_for_PC(melted_df, frame_id)
         params = RPC.default_model_params()
         PPCFa, _, _ = RPC.generate_pitch_control_for_event(
@@ -155,7 +155,7 @@ class PitchControlCalculator:
 
         attacking_team_abb = frame_df.loc[frame_df['team_on_ball'] == True].iloc[0, 0][0]
 
-        fig, ax = RPC.plot_pitchcontrol_for_event(PPCFa, frame_df.iloc[0], frame_df, attacking_team_abb, ax)
+        fig, ax = RPC.plot_pitchcontrol_for_event(PPCFa, frame_df.iloc[0], frame_df, attacking_team_abb)
 
         frame_time = float(frame_df.iloc[0]['time'])
         attacking_ratio, defending_ratio = self._plot_comparison(

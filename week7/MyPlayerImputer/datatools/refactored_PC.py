@@ -155,19 +155,14 @@ def initialise_players(team_df,teamname,params, att, event):
 
 #Plots pitch control for an event
 def plot_pitchcontrol_for_event(PPCF, action, locs, attacking_team,
-                                home_color='blue',   # 홈팀 색상 인자 추가 (기본값 'red')
-                                away_color='red',  # 원정팀 색상 인자 추가 (기본값 'blue')
+                                home_color='red',   # 홈팀 색상 인자 추가 (기본값 'red')
+                                away_color='blue',  # 원정팀 색상 인자 추가 (기본값 'blue')
                                 alpha = 0.9, Pitch_Control=True, 
-                                include_player_velocities=True, annotate=False, field_dimen = (105.0,68), ax=None):
-    if attacking_team == 'H':   # 홈팀이 공격 중
-        att_color, def_color = home_color, away_color
-    else:                       # 어웨이팀이 공격 중
-        att_color, def_color = away_color, home_color
+                                include_player_velocities=True, annotate=False, field_dimen = (105.0,68)):
+    att_color = team_colors[attacking_team]
+    def_color = team_colors['A'] if attacking_team == 'H' else team_colors['H']
 
-    if ax is None:
-        fig, ax = plot_frame(action, locs, att_color, def_color)  # 기존 함수가 fig,ax 생성
-    else:
-        fig = ax.figure
+    fig,ax = plot_frame(action, locs, att_color, def_color)
 
     if Pitch_Control == True:
         cmap = LinearSegmentedColormap.from_list(
