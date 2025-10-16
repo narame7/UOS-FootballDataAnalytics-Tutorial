@@ -40,7 +40,14 @@ class makeVideo:
 
         writer.close()  # 파일 쓰기를 완료합니다.
         print(f"MP4 파일 생성 완료: {output_path}")
+        for img_path in img_files:
+            try:
+                os.remove(img_path)
+            except Exception as e:
+                print(f"삭제 실패: {img_path} ({e})")
 
+        print(f"✅ 모든 PNG 프레임이 삭제되었습니다 ({len(img_files)}개).")
+        
     def make_animation(
         self,
         melted_df: pd.DataFrame,
