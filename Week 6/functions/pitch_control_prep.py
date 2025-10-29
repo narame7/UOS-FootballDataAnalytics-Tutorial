@@ -5,7 +5,7 @@ import pandas as pd
 from tqdm import tqdm
 
 import functions.pitch_control as PC
-import config
+import functions.config as config
 
 class PitchControlCalculator:
     def __init__(self, merged_df, traces_df, events_df, team_sheets_lookup):

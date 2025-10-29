@@ -29,8 +29,8 @@ from floodlight.io.dfl import (
     read_teamsheets_from_mat_info_xml,
 )
 
-import config
-from utils_data import infer_ball_carrier
+import functions.config as config
+from functions.utils_data import infer_ball_carrier
 
 # Constants
 PERIOD_DICT = {"firstHalf": 1, "secondHalf": 2}

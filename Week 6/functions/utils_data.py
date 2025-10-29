@@ -1,14 +1,13 @@
 import os
-import tarfile  # zipfile 대신 tarfile을 임포트합니다.
+import tarfile  
 from pathlib import Path
 
-# 2. 서드파티 라이브러리 (Third-Party Libraries)
 import numpy as np
 import pandas as pd
 import torch
 from torch.nn.utils.rnn import pad_sequence
 
-import config
+import functions.config as config
 
 def infer_ball_carrier(tracking_df, source='bepro'):
     # --- Helper Functions with corrected indentation and English comments ---
