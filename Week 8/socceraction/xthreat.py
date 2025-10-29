@@ -12,8 +12,11 @@ from sklearn.exceptions import NotFittedError
 
 import socceraction.spadl.config as spadlconfig
 from socceraction.spadl.schema import SPADLSchema
-from scipy.interpolate import RegularGridInterpolator  # type: ignore
 
+try:
+    from scipy.interpolate import interp2d  # type: ignore
+except ImportError:  # pragma: no cover
+    interp2d = None
 
 M: int = 12
 N: int = 16
@@ -363,17 +366,16 @@ class ExpectedThreat:
         callable
             A function that interpolates xT values over the pitch.
         """
-
+        if interp2d is None:
+            raise ImportError("Interpolation requires scipy to be installed.")
 
         cell_length = spadlconfig.field_length / self.l
         cell_width = spadlconfig.field_width / self.w
 
         x = np.arange(0.0, spadlconfig.field_length, cell_length) + 0.5 * cell_length
         y = np.arange(0.0, spadlconfig.field_width, cell_width) + 0.5 * cell_width
-        xi, yi = np.meshgrid(x, y, indexing='ij')
-        points = np.stack([xi.ravel(), yi.ravel()], axis=-1)
 
-        return RegularGridInterpolator(points, self.xT.T, method=kind, bounds_error=False)
+        return interp2d(x=x, y=y, z=self.xT, kind=kind, bounds_error=False)
 
     def rate(
         self, actions: DataFrame[SPADLSchema], use_interpolation: bool = False
