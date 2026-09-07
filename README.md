@@ -1,4 +1,6 @@
-# ⚽ UOS02057 Introduction to Football Data Analytics (2025 Fall)
+# ⚽ UOS02057 Introduction to Football Data Analytics (2026 Fall)
+
+> 연도별 자료는 브랜치로 나뉩니다: [`2025`](../../tree/2025) (2025년 2학기), [`2026`](../../tree/2026) (2026년 2학기, 현재).
 
 <br>
 
