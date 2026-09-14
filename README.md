@@ -57,9 +57,10 @@
 노트북은 번호 순서대로 실행하세요.
 
 ### `Week 2` — 데이터 불러오기
-- `1-load-statistic-data.ipynb` — 집계 통계 데이터(FBref 등)를 pandas로 불러와 살펴보기
-- `2-load-event-and-tracking-data.ipynb` — `statsbombpy`로 StatsBomb 오픈 이벤트 데이터를, `kloppy`로 트래킹 데이터를 불러오기
-- 필요 라이브러리: `pandas`, `statsbombpy`, `kloppy`, `mplsoccer`
+- `1-load-statistic-data.ipynb` — `ScraperFC`·`soccerdata`로 ClubElo, FBref, Understat, Football-Data 통계 데이터를 불러와 살펴보기
+  - FBref는 봇 차단 때문에 Chrome 브라우저 창을 띄워 크롤링하므로 **Chrome이 설치된 로컬 Jupyter**에서 실행하세요 (셀마다 수 분 걸릴 수 있음)
+- `2-load-event-and-tracking-data.ipynb` — Metrica Sports 샘플 이벤트·트래킹 데이터(CSV)를 불러와 좌표 변환, 속도 계산, 장면 시각화, 영상 저장
+- 필요 라이브러리: `pandas`, `matplotlib`, `seaborn`, `scipy`, `ScraperFC`, `soccerdata` (영상 저장에는 `ffmpeg` 필요)
 
 ### `Week 4` — 이벤트 데이터 분석과 시각화
 - `1-event-data-analysis-and-visualization.ipynb` — 패스 맵, 슈팅 맵, 히트맵, 패스 네트워크를 `mplsoccer`로 그리기
