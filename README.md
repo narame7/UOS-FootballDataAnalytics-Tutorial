@@ -57,8 +57,9 @@
 노트북은 번호 순서대로 실행하세요.
 
 ### `Week 2` — 데이터 불러오기
-- `1-load-statistic-data.ipynb` — `ScraperFC`·`soccerdata`로 ClubElo, FBref, Understat, Football-Data 통계 데이터를 불러와 살펴보기
-  - FBref는 봇 차단 때문에 Chrome 브라우저 창을 띄워 크롤링하므로 **Chrome이 설치된 로컬 Jupyter**에서 실행하세요 (셀마다 수 분 걸릴 수 있음)
+- `1-load-statistic-data.ipynb` — `ScraperFC`·`soccerdata`로 ClubElo, Understat, Football-Data 통계 데이터를 불러와 살펴보기 (2026/27 시즌 기준)
+  - FBref는 봇 차단(Cloudflare) 때문에 브라우저 없는 Colab에서 크롤링이 안 되어 다루지 않습니다.
+  - ClubElo(api.clubelo.com)와 Football-Data 서버가 응답하지 않으면 해당 셀은 안내 메시지만 출력하고 넘어갑니다.
 - `2-load-event-and-tracking-data.ipynb` — Metrica Sports 샘플 이벤트·트래킹 데이터(CSV)를 불러와 좌표 변환, 속도 계산, 장면 시각화, 영상 저장
 - 필요 라이브러리: `pandas`, `matplotlib`, `seaborn`, `scipy`, `ScraperFC`, `soccerdata` (영상 저장에는 `ffmpeg` 필요)
 
