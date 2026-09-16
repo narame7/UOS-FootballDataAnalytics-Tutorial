@@ -57,11 +57,14 @@
 노트북은 번호 순서대로 실행하세요.
 
 ### `Week 2` — 데이터 불러오기
-- `1-load-statistic-data.ipynb` — `ScraperFC`·`soccerdata`로 ClubElo, Understat, Football-Data 통계 데이터를 불러와 살펴보기 (2026/27 시즌 기준)
+- `1-load-statistic-data.ipynb` — 통계 데이터를 네 곳에서 불러와 살펴보기 (2026/27 시즌 기준)
+  - ClubElo: 웹페이지 표를 `pandas.read_html`로 읽어 리그별 Elo 순위와 팀별 최근 경기 Elo 변화 보기 (API는 2026년 9월 현재 응답하지 않음)
+  - Transfermarkt: 리그 순위표, 구단·선수 시장가치, 스쿼드를 `read_html`과 `BeautifulSoup`으로 읽기
+  - Understat: `soccerdata`로 일정, 순위, 선수·경기 기록, 슈팅(xG) 데이터 불러오기
+  - Football-Data.co.uk: `soccerdata`로 과거 경기 결과를 받아 홈 어드밴티지 분석
   - FBref는 봇 차단(Cloudflare) 때문에 브라우저 없는 Colab에서 크롤링이 안 되어 다루지 않습니다.
-  - ClubElo(api.clubelo.com)와 Football-Data 서버가 응답하지 않으면 해당 셀은 안내 메시지만 출력하고 넘어갑니다.
 - `2-load-event-and-tracking-data.ipynb` — Metrica Sports 샘플 이벤트·트래킹 데이터(CSV)를 불러와 좌표 변환, 속도 계산, 장면 시각화, 영상 저장
-- 필요 라이브러리: `pandas`, `matplotlib`, `seaborn`, `scipy`, `ScraperFC`, `soccerdata` (영상 저장에는 `ffmpeg` 필요)
+- 필요 라이브러리: `pandas`, `requests`, `beautifulsoup4`, `lxml`, `matplotlib`, `seaborn`, `scipy`, `soccerdata` (영상 저장에는 `ffmpeg` 필요)
 
 ### `Week 4` — 이벤트 데이터 분석과 시각화
 - `1-event-data-analysis-and-visualization.ipynb` — 패스 맵, 슈팅 맵, 히트맵, 패스 네트워크를 `mplsoccer`로 그리기
