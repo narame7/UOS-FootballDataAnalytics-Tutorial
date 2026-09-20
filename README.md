@@ -57,9 +57,8 @@
 노트북은 번호 순서대로 실행하세요.
 
 ### `Week 2` — 데이터 불러오기
-- `1-load-statistic-data.ipynb` — 통계 데이터를 여섯 곳에서 불러와 살펴보기 (2026/27 시즌 기준)
+- `1-load-statistic-data.ipynb` — 통계 데이터를 다섯 곳에서 불러와 살펴보기 (2026/27 시즌 기준)
   - ClubElo: 웹페이지 표를 `pandas.read_html`로 읽어 리그별 Elo 순위와 팀별 최근 경기 Elo 변화 보기 (API는 2026년 9월 현재 응답하지 않음)
-  - Fantasy Premier League API: 선수 667명의 시즌 기록(득점, xG, xA, 판타지 점수, 가격 등), 팀, 경기 일정·결과, 선수별 경기 기록을 JSON으로 받기
   - 프리미어리그 공식 사이트 API(비공식): 순위표, 지표별 선수 순위, 경기 결과와 관중 수
   - Wikipedia: 시즌 문서의 순위표, 경기장, 감독·주장, 득점 순위 표를 `read_html`로 읽고 각주를 정리해 합치기
   - Understat: `soccerdata`로 일정, 순위, 선수·경기 기록, 슈팅(xG) 데이터 불러오기
