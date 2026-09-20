@@ -57,12 +57,14 @@
 노트북은 번호 순서대로 실행하세요.
 
 ### `Week 2` — 데이터 불러오기
-- `1-load-statistic-data.ipynb` — 통계 데이터를 네 곳에서 불러와 살펴보기 (2026/27 시즌 기준)
+- `1-load-statistic-data.ipynb` — 통계 데이터를 여섯 곳에서 불러와 살펴보기 (2026/27 시즌 기준)
   - ClubElo: 웹페이지 표를 `pandas.read_html`로 읽어 리그별 Elo 순위와 팀별 최근 경기 Elo 변화 보기 (API는 2026년 9월 현재 응답하지 않음)
+  - Fantasy Premier League API: 선수 667명의 시즌 기록(득점, xG, xA, 판타지 점수, 가격 등), 팀, 경기 일정·결과, 선수별 경기 기록을 JSON으로 받기
+  - 프리미어리그 공식 사이트 API(비공식): 순위표, 지표별 선수 순위, 경기 결과와 관중 수
   - Wikipedia: 시즌 문서의 순위표, 경기장, 감독·주장, 득점 순위 표를 `read_html`로 읽고 각주를 정리해 합치기
   - Understat: `soccerdata`로 일정, 순위, 선수·경기 기록, 슈팅(xG) 데이터 불러오기
   - Football-Data.co.uk: `soccerdata`로 과거 경기 결과를 받아 홈 어드밴티지 분석
-  - FBref(Cloudflare)와 Transfermarkt(AWS WAF)는 봇 차단 때문에 브라우저 없는 Colab에서 크롤링이 안 되어 다루지 않습니다.
+  - FBref, Transfermarkt, Sofascore, ESPN, FotMob, WhoScored는 봇 차단 때문에 Colab에서 안 되어 다루지 않습니다.
 - `2-load-event-and-tracking-data.ipynb` — Metrica Sports 샘플 이벤트·트래킹 데이터(CSV)를 불러와 좌표 변환, 속도 계산, 장면 시각화, 영상 저장
 - 필요 라이브러리: `pandas`, `requests`, `lxml`, `matplotlib`, `seaborn`, `scipy`, `soccerdata` (영상 저장에는 `ffmpeg` 필요)
 
